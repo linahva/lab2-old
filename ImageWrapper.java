@@ -1,7 +1,7 @@
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-public abstract class Wrapper {
+public abstract class ImageWrapper {
     BufferedImage image;
     Point position;
     
