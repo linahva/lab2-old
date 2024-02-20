@@ -47,8 +47,8 @@ Minsksar även antalet starka beroenden och tar bort dubbla beroenden (två väg
 Open closed principen förbättras också då DrawPanel inte behöver vara hårdkodad
 
 1. skapa nya klass som är mainController
-2. lägg över de aspekter som berör spelet allmänt i main från CarController.
-3. Skapa en representation/samlingsklass av alla bilar som läggs till. Lägg till de bilar/vehichles i klassen med Wrapper representationen. Koppla den sedan till CarController.
+2. lägg över de aspekter som berör spelet allmänt i main från CarController, som sedan via komposition har en CarView.
+3. Skapa en representation/samlingsklass (modell) av alla bilar som läggs till. Lägg till de bilar/vehichles i klassen med Wrapper representationen. Koppla den sedan till CarController.
 4. Ta bort det dubbla beroendet mellan CarController och CarView.
-5. Ta bort beroendet från CarView till DrawPanel och lägg den Istället i mainController men som svagt beroende (skapa inte ett objekt av klassen)
-6. Skapa getters i Object klasserna för att returnera WrapperObjecten. Skicka iväg de samlade obkjekten (shop och Cars) till DrawPanel.
+5. Lägg till CarView genom komposition i carModel och skapa metod i carView som skickar vidare objekten till drawpanel, och metod i carmodel som skickar vidare objekten till carview.
+6. Skapa getters i Object klasserna för att returnera WrapperObjecten som används i carModel.
