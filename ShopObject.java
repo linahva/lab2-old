@@ -6,10 +6,10 @@ import javax.imageio.ImageIO;
 import src.CarRepairShop;
 import src.Volvo240;
 
-public class ShopWrapper extends Wrapper{
+public class ShopObject extends ImageWrapper{
     private CarRepairShop<Volvo240> shop;
 
-    ShopWrapper(CarRepairShop<Volvo240> shop){
+    ShopObject(CarRepairShop<Volvo240> shop){
         this.shop = shop;
         this.position = new Point();
         this.position.x = (int) this.shop.shopX();

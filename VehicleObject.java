@@ -3,12 +3,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import src.Vehichle;
+import src.Vehicle;
 
-public class VehichleWrapper extends Wrapper{
-    private Vehichle vehicle;
+public class VehicleObject extends ImageWrapper{
+    private Vehicle vehicle;
 
-    public VehichleWrapper(Vehichle vehicle) {
+    public VehicleObject(Vehicle vehicle) {
         this.vehicle = vehicle;
         this.position = new Point();
         this.position.x = (int) vehicle.getX();
@@ -24,7 +24,7 @@ public class VehichleWrapper extends Wrapper{
         position.x = (int) vehicle.getX();
         position.y = (int) vehicle.getY();
     }
-    public Vehichle getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 }

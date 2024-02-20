@@ -7,12 +7,14 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
-    ArrayList<Wrapper> items = new ArrayList<>();
+    ArrayList<ImageWrapper> items = new ArrayList<>();
 
-    void addItems(Wrapper item) {
+
+    //
+    void addItems(ImageWrapper item) {
         items.add(item);
     }
-    void removeItems(Wrapper item) {
+    void removeItems(ImageWrapper item) {
         items.remove(item);
     }
 
@@ -28,7 +30,7 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Wrapper item : items) {
+        for (ImageWrapper item : items) {
             g.drawImage(item.getImage(), item.getX(), item.getY(), null);
         }
     }
