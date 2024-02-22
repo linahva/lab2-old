@@ -23,89 +23,48 @@ public class CarController {
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    private MainTimer timer;
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
-    // A list of cars, modify if needed
-    ArrayList<VehicleObject> cars = new ArrayList<>();
-    ShopObject shopObject;
-    //methods:
+    private Model model;
 
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
 
-        Volvo240 volvo = new Volvo240();
-        Saab95 saab = new Saab95();
-        Scania scania = new Scania();
-        saab.setLocation(0, 100);
-        scania.setLocation(0, 200);
-        VehicleObject volvoWrapper = new VehicleObject(volvo);
-        VehicleObject saabWrapper = new VehicleObject(saab);
-        VehicleObject scaniaWrapper = new VehicleObject(scania);
-
-        CarRepairShop<Volvo240> shop = new CarRepairShop<Volvo240>(3, 300,0);
-        cc.shopObject = new ShopObject(shop);
-
-        cc.cars.add(volvoWrapper);
-        cc.cars.add(saabWrapper);
-        cc.cars.add(scaniaWrapper);
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        cc.frame.drawPanel.addItems(volvoWrapper);
-        cc.frame.drawPanel.addItems(saabWrapper);
-        cc.frame.drawPanel.addItems(scaniaWrapper);
-        cc.frame.drawPanel.addItems(cc.shopObject);
-
-        // Start the timer
-        cc.timer.start();
+    public CarController(CarView view) {
+        this.model = new Model(view);
     }
+    //methods:
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            for (VehicleObject vehichle : cars) {
-                vehichle.getVehicle().move();
-                checkInBounds(frame.getX(),frame.getY());
-                vehichle.moveit();
-                if (vehichle.getVehicle() instanceof Volvo240 && shopObject.getShop().loadable((Volvo240) vehichle.getVehicle())) {
-                    shopObject.getShop().loadCar((Volvo240) vehichle.getVehicle());
-                }
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
-            }
-        }
+    public void updateTickModel() {
+        model.updateTickModel();
     }
 
     // Calls the gas method for each car once
     void gas(int amount) {
-        double gas = ((double) amount) / 100;for (VehicleObject car : cars
+        double gas = ((double) amount) / 100;for (VehicleObject car : model.getVehicles()
                 ) {
             car.getVehicle().gas(gas);
         }
     }
     void brake(int amount) {
-        double brake = ((double) amount) / 100;for (VehicleObject car : cars
+        double brake = ((double) amount) / 100;for (VehicleObject car : model.getVehicles()
         ) {
             car.getVehicle().brake(brake);
         }
     }
     void startCars() {
-        for (VehicleObject car : cars)
+        for (VehicleObject car : model.getVehicles())
             car.getVehicle().startEngine();
     }
     void stopCars() {
-        for (VehicleObject car : cars)
+        for (VehicleObject car : model.getVehicles())
             car.getVehicle().stopEngine();
     }
     void turboOn() {
         Saab95 saab;
-        for (VehicleObject car : cars) {
+        for (VehicleObject car : model.getVehicles()) {
             if (car.getVehicle() instanceof Saab95) {
                 saab = (Saab95) car.getVehicle();
                 saab.setTurboOn();
@@ -114,7 +73,7 @@ public class CarController {
     }
     void turboOff() {
         Saab95 saab;
-        for (VehicleObject car : cars) {
+        for (VehicleObject car : model.getVehicles()) {
             if (car.getVehicle() instanceof Saab95) {
                 saab = (Saab95) car.getVehicle();
                 saab.setTurboOff();
@@ -123,7 +82,7 @@ public class CarController {
     }
     void liftPlatform() {
         Scania scania;
-        for (VehicleObject car : cars) {
+        for (VehicleObject car : model.getVehicles()) {
             if (car.getVehicle() instanceof Scania) {
                 scania = (Scania) car.getVehicle();
                 scania.raisePlatform();
@@ -132,18 +91,12 @@ public class CarController {
     }
     void lowerPlatform() {
         Scania scania;
-        for (VehicleObject car : cars) {
+        for (VehicleObject car : model.getVehicles()) {
             if (car.getVehicle() instanceof Scania) {
                 scania = (Scania) car.getVehicle();
                 scania.lowerPlatform();
             }
         }
     }
-    public void checkInBounds(int x, int y){
-        for (VehicleObject car : cars) {
-            if (car.getVehicle().getX()>x-100 || car.getVehicle().getX()<0 || car.getVehicle().getY()>y+200 || car.getVehicle().getY()<-5) {
-                car.getVehicle().flipDirection();
-            }
-        }
-    }
+
 }

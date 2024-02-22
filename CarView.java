@@ -1,3 +1,5 @@
+import src.Volvo240;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -40,7 +42,8 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarController cc){
+    public CarView(String framename){
+        CarController cc = new CarController(this);
         this.carC = cc;
         initComponents(framename);
     }
@@ -169,8 +172,10 @@ public class CarView extends JFrame{
         return Y;
     }
 
-    public void repaint(ImageWrapper imageWrapper) {
-        drawPanel.addItems(imageWrapper);
+    public void repaint() {
         drawPanel.repaint();
+    }
+    public void updateTick() {
+        carC.updateTickModel();
     }
 }
