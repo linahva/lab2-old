@@ -16,8 +16,9 @@ public class MainApp {
     public static void main(String[] args) {
         Model model = new Model();
         CarController cc = new CarController(model);
-        CarView cw = new CarView("Car", cc);
-        model.addObserver(cw);
+        View drawPanel = new View(800, 560);
+        Widget cw = new Widget("Car", cc, drawPanel);
+        model.addObserver(drawPanel);
         model.addVehicle(Factory.createSaab(0, 200,false));
         model.addVehicle(Factory.createVolvo(0, 0,false));
         model.addVehicle(Factory.createScania(0, 400,false));

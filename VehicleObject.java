@@ -21,7 +21,7 @@ public class VehicleObject implements ImageWrapper{
         this.position.x = (int) vehicle.getX();
         this.position.y = (int) vehicle.getY();
         try {
-			this.image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+vehicle.getModelName()+".jpg"));
+			this.image = ImageIO.read(View.class.getResourceAsStream("pics/"+vehicle.getModelName()+".jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

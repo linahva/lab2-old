@@ -19,7 +19,7 @@ public class ShopObject implements ImageWrapper{
         this.position.x = (int) this.shop.shopX();
         this.position.y = (int) this.shop.shopY();
         try {
-			this.image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+			this.image = ImageIO.read(View.class.getResourceAsStream("pics/VolvoBrand.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
