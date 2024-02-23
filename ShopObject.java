@@ -3,7 +3,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import src.Car;
 import src.CarRepairShop;
+import src.Vehicle;
 import src.Volvo240;
 
 public class ShopObject extends ImageWrapper{
@@ -22,5 +24,11 @@ public class ShopObject extends ImageWrapper{
     }
     public CarRepairShop<Volvo240> getShop() {
         return shop;
+    }
+    public boolean loadable(Vehicle vehicle){
+        return shop.loadable(vehicle);
+    }
+    public void loadCar(Volvo240 car) {
+        shop.loadCar(car);
     }
 }

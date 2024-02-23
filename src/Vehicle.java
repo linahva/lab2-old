@@ -12,7 +12,6 @@ public abstract class Vehicle implements Movable{
     private double direction = 0;
     private Point2D point;
     private int carSizeCategory;
-    private boolean isLoaded = false;
 
     public Vehicle(int nrDoors, Color color, double enginePower, String modelName, int category) {
         this.nrDoors = nrDoors;
@@ -25,9 +24,6 @@ public abstract class Vehicle implements Movable{
     }
     public int getNrDoors() {
         return nrDoors;
-    }
-    public void setLoaded(boolean loaded) {
-        isLoaded = loaded;
     }
     public int getCarSizeCategory() {
         return carSizeCategory;
@@ -63,7 +59,6 @@ public abstract class Vehicle implements Movable{
 
         @Override
         public void move() {
-            if (!isLoaded)
                 point.setLocation(point.getX() + Math.cos(direction) * currentSpeed, point.getY() + Math.sin(direction) * currentSpeed);
         }
 

@@ -2,7 +2,7 @@ package src;
 
 import java.awt.*;
 
-public class Scania extends Truck{
+public class Scania extends Truck implements IScaniaRamp{
     private static final int maxAngle = 70;
     private ScaniaPlatform carPlatform;
     public Scania(){

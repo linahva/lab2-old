@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
  *
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements IModelObserver{
     private static final int X = 800;
     private static final int Y = 800;
 
@@ -37,13 +38,14 @@ public class CarView extends JFrame{
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton addCar = new JButton("Add Car");
+    JButton removeCar = new JButton("Remove Car");
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename){
-        CarController cc = new CarController(this);
+    public CarView(String framename, CarController cc){
         this.carC = cc;
         initComponents(framename);
     }
@@ -86,6 +88,8 @@ public class CarView extends JFrame{
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(addCar, 6);
+        controlPanel.add(removeCar, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -172,10 +176,15 @@ public class CarView extends JFrame{
         return Y;
     }
 
-    public void repaint() {
+    public void onModelUpdate() {
         drawPanel.repaint();
     }
-    public void updateTick() {
-        carC.updateTickModel();
+    public void addRenderItem(ImageWrapper item) {
+        drawPanel.addItems(item);
+    }
+    public void addDrawableItems(ArrayList<ImageWrapper> items) {
+        for (ImageWrapper item : items) {
+            drawPanel.addItems(item);
+        }
     }
 }

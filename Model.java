@@ -1,75 +1,115 @@
 import src.CarRepairShop;
-import src.Saab95;
-import src.Scania;
 import src.Volvo240;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model {
     private ArrayList<VehicleObject> vehicles;
     private ShopObject shop;
-    private CarView view;
+    private ArrayList<IModelObserver> observers = new ArrayList<IModelObserver>();
 
-    public Model(CarView view) {
-        this.view = view;
-        this.vehicles = new ArrayList<>();
-        Volvo240 volvo = new Volvo240();
-        Saab95 saab = new Saab95();
-        Scania scania = new Scania();
-        saab.setLocation(0,100);
-        scania.setLocation(0,200);
-        this.addVehicle(new VehicleObject(volvo));
-        this.addVehicle(new VehicleObject(saab));
-        this.addVehicle(new VehicleObject(scania));
-        this.shop = new ShopObject(new CarRepairShop<Volvo240>(3,300,0));
-        updateCarView();
+    public Model() {
+        vehicles = new ArrayList<>();
     }
 
     public void addVehicle(VehicleObject vehicle) {
+        if (vehicles.size() < 10){
         vehicles.add(vehicle);
+        addRenderToObserver(vehicle);
+        }
+    }
+    public void removeVehicle() { 
+        if (vehicles.size() > 0)
+        vehicles.remove(new Random().nextInt(vehicles.size()-1));
+    }
+    public void addRenderToObserver(ImageWrapper img) {
+        for (IModelObserver observer : observers) {
+            observer.addRenderItem(img);
+        }
     }
 
-    public ArrayList<VehicleObject> getVehicles() {
-        return vehicles;
-    }
+    //public ArrayList<ImageWrapper> getDrawableItems() {
+      //  ArrayList<ImageWrapper> items = new ArrayList<>();
+        //items.addAll(vehicles);
+       // items.add(shop);
+        //return items;
+    //}
     public ShopObject getShop() {
         return shop;
     }
 
-
-
-    public void addShop (ShopObject shop){
-        this.shop=shop;
+    public void addShop (CarRepairShop<Volvo240> shop){
+        this.shop = new ShopObject(shop);
+        addRenderToObserver(this.shop);
     }
 
-    public void updateCarView () {
+    public void gas(double amount) {
         for (VehicleObject vehicle : vehicles) {
-            view.drawPanel.addItems(vehicle);
+            vehicle.gas(amount);
         }
-        //for (ShopObject shop : shop) {
-            view.drawPanel.addItems(shop);
-        //}
-        //view.drawPanel.repaint();
+    }
+    public void brake(double amount) {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.brake(amount);
+        }
+    }
+    public void startEngine() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.startEngine();
+        }
+    }
+    public void stopEngine() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.stopEngine();
+        }
+    }
+    public void turboOn() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.setTurboOn();
+        }
+    }
+    public void turboOff() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.setTurboOff();
+        }
+    }
+    public void liftPlatform() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.raisePlatform();
+        }
+    }
+    public void lowerPlatform() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.lowerPlatform();
+        }
+    }
+    public void addObserver(IModelObserver observer) {
+        observers.add(observer);
+    }
+    public void notifyObservers() {
+        for (IModelObserver observer : observers) {
+            observer.onModelUpdate();
+        }
     }
 
-
-        public void updateTickModel() {
-            for (VehicleObject vehicle : vehicles) {
-                vehicle.getVehicle().move();
-                vehicle.moveit();
-                if (vehicle.getVehicle() instanceof Volvo240 && getShop().getShop().loadable((Volvo240) vehicle.getVehicle())) {
-                    getShop().getShop().loadCar((Volvo240) vehicle.getVehicle());
-            }
-                checkInBounds(800, 800);
-                view.repaint();
+    public void updateTickModel() {
+        for (VehicleObject vehicle : vehicles) {
+            vehicle.move();
+            tryLoading(vehicle);
+            checkInBounds(800, 800);
+            notifyObservers();
+        }
+    }
+    public void tryLoading(VehicleObject vehicle) {
+        if (vehicle.getVehicle() instanceof Volvo240 && getShop().loadable(vehicle.getVehicle())) {
+            getShop().loadCar((Volvo240) vehicle.getVehicle());
         }
     }
     public void checkInBounds(int x, int y){
         for (VehicleObject car : vehicles) {
-            if (car.getVehicle().getX()>x-100 || car.getVehicle().getX()<0 || car.getVehicle().getY()>y+200 || car.getVehicle().getY()<-5) {
-                car.getVehicle().flipDirection();
+            if (car.getX()>x-100 || car.getX()<0 || car.getY()>y+200 || car.getY()<-5) {
+                car.flipDirection();
             }
         }
     }
