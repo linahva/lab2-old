@@ -8,7 +8,6 @@
 public class CarController {
     // member fields:
 
-    // The frame that represents this instance View of the MVC pattern
     private Model model;
 
 
@@ -23,12 +22,10 @@ public class CarController {
 
     // Calls the gas method for each car once
     void gas(int amount) {
-        double gas = ((double) amount) / 100;
-            model.gas(gas);
+        model.gas(amount);
     }
     void brake(int amount) {
-        double brake = ((double) amount) / 100;
-            model.brake(brake);
+        model.brake(amount);
     }
     void startCars() {
         model.startEngine();

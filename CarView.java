@@ -194,11 +194,6 @@ public class CarView extends JFrame implements IModelObserver{
     public void addRenderItem(ImageWrapper item) {
         drawPanel.addItems(item);
     }
-    public void addDrawableItems(ArrayList<ImageWrapper> items) {
-        for (ImageWrapper item : items) {
-            drawPanel.addItems(item);
-        }
-    }
     public void removeRenderItem(ImageWrapper item) {
         drawPanel.removeItems(item);
     }

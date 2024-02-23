@@ -32,6 +32,9 @@ public abstract class Vehicle implements Movable{
         public double getEnginePower() {
             return enginePower;
         }
+        public void setAngle(double angle){
+            direction = angle;
+        }
 
         public double getCurrentSpeed() {
             return currentSpeed;

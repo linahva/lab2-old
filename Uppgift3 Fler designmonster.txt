@@ -2,7 +2,8 @@ Observer, Factory Method, State, Composite. För vart och ett av dessa fyra desi
 - Finns det något ställe i er design där ni redan använder detta pattern, avsiktligt eller oavsiktligt? Vilka designproblem löste ni genom att använda det?
     Observer användes för modellen, löser problemet att modellen inte behöver vara beroende av en view, DIP.
 - Finns det något ställe där ni kan förbättra er design genom att använda detta design pattern? Vilka designproblem skulle ni lösa genom att använda det? Om inte, varför skulle er design inte förbättras av att använda det?
-    Factory method skulle kunna användas för att skapa och returnera objekt av de olika instanserna av bilarna.
-    Composite skulle kunna användas för att hantera sammansättningar av objekten enhetligt, detta hade kunnats göra med movable interfacet genom att implementera det i model. Kommer dock inte göras då...
+    Factory method skulle kunna användas för att skapa och returnera objekt av de olika instanserna av bilarna i VehichleObject, vilket då skapar inkapsling och möjliggör för utökning ifall man vill skapa fler bilar samt återanvändning av kod.
+    Composite skulle kunna användas för att hantera sammansättningar av objekten enhetligt, detta hade kunnats göra med movable interfacet genom att implementera det i model. Kommer dock inte göras då vi inte kan behandla alla bilar på samma sätt och vi tror att implementationen bara skulle leda till
+    onödig komplexitet då vi ändå behöver flexibiliteten av att behandla vissa objekt annorlunda.
     State patterns skulle kunna användas till olika tillståndet för om en bil är laddad (loaded) eller ej och se till att den inte rör sig isf. Notera att i UML diagrammet så saknas de specifika state implementationerna då vi hade
-    använt upp antalet gratis objekt i det UML programm vi använde.
+    använt upp antalet gratis objekt i det UML programm vi använde. Lite overkill i vårt scenario men det gör att vi inte behöver lägga till olika attribut och if satser i Car och definerar därav beteendet i State implementationerna, vilket då också gör det lättare att utvidga dessa om vi vill att beteendet ska ändras framöver.

@@ -3,7 +3,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import src.Car;
 import src.CarRepairShop;
 import src.Vehicle;
 import src.Volvo240;

@@ -18,9 +18,9 @@ public class MainTimer {
         CarController cc = new CarController(model);
         CarView cw = new CarView("Car", cc);
         model.addObserver(cw);
-        model.addVehicle(Factory.createSaab(0, 200));
-        model.addVehicle(Factory.createVolvo(0, 0));
-        model.addVehicle(Factory.createScania(0, 400));
+        model.addVehicle(Factory.createSaab(0, 200,false));
+        model.addVehicle(Factory.createVolvo(0, 0,false));
+        model.addVehicle(Factory.createScania(0, 400,false));
         model.addShop(Factory.createVolvoShop(10, 200, 0));
         //cw.addDrawableItems(model.getDrawableItems());
         MainTimer main = new MainTimer(model);

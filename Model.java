@@ -2,6 +2,7 @@ import src.CarRepairShop;
 import src.Volvo240;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model {
     private ArrayList<VehicleObject> vehicles;
@@ -46,14 +47,16 @@ public class Model {
         addRenderToObserver(this.shop);
     }
 
-    public void gas(double amount) {
+    public void gas(int amount) {
+        double gas = ((double) amount) / 100;
         for (VehicleObject vehicle : vehicles) {
-            vehicle.gas(amount);
+            vehicle.gas(gas);
         }
     }
-    public void brake(double amount) {
+    public void brake(int amount) {
+        double gas = ((double) amount) / 100;
         for (VehicleObject vehicle : vehicles) {
-            vehicle.brake(amount);
+            vehicle.brake(gas);
         }
     }
     public void startEngine() {
@@ -87,7 +90,7 @@ public class Model {
         }
     }
     public void addCar() {
-        addVehicle(Factory.createVolvo(400, 400));
+        addVehicle(Factory.createVolvo(400, 300, true));
     }
     public void removeCar() {
         removeVehicle();
@@ -105,7 +108,7 @@ public class Model {
         for (VehicleObject vehicle : vehicles) {
             vehicle.move();
             tryLoading(vehicle);
-            checkInBounds(800, 800);
+            checkInBounds(vehicle, 800, 800);
             notifyObservers();
         }
     }
@@ -114,11 +117,10 @@ public class Model {
             getShop().loadCar((Volvo240) vehicle.getVehicle());
         }
     }
-    public void checkInBounds(int x, int y){
-        for (VehicleObject car : vehicles) {
-            if (car.getX()>x-100 || car.getX()<0 || car.getY()>y+200 || car.getY()<-5) {
-                car.flipDirection();
-            }
+    public void checkInBounds(VehicleObject v, int x, int y){
+            if (v.getX()>x-100 || v.getX()<0 || v.getY()>y+200 || v.getY()<-5) {
+                v.flipDirection();
+            
         }
     }
 
