@@ -2,7 +2,6 @@ import src.CarRepairShop;
 import src.Volvo240;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Model {
     private ArrayList<VehicleObject> vehicles;
@@ -17,24 +16,27 @@ public class Model {
         if (vehicles.size() < 10){
         vehicles.add(vehicle);
         addRenderToObserver(vehicle);
+        notifyObservers();
         }
     }
     public void removeVehicle() { 
-        if (vehicles.size() > 0)
-        vehicles.remove(new Random().nextInt(vehicles.size()-1));
+        if (vehicles.size() > 0){
+            removeRenderFromObserver(vehicles.get(0));
+            vehicles.remove(0);
+            notifyObservers();
+        }
     }
     public void addRenderToObserver(ImageWrapper img) {
         for (IModelObserver observer : observers) {
             observer.addRenderItem(img);
         }
     }
+    public void removeRenderFromObserver(ImageWrapper img) {
+        for (IModelObserver observer : observers) {
+            observer.removeRenderItem(img);
+        }
+    }
 
-    //public ArrayList<ImageWrapper> getDrawableItems() {
-      //  ArrayList<ImageWrapper> items = new ArrayList<>();
-        //items.addAll(vehicles);
-       // items.add(shop);
-        //return items;
-    //}
     public ShopObject getShop() {
         return shop;
     }
@@ -83,6 +85,12 @@ public class Model {
         for (VehicleObject vehicle : vehicles) {
             vehicle.lowerPlatform();
         }
+    }
+    public void addCar() {
+        addVehicle(Factory.createVolvo(400, 400));
+    }
+    public void removeCar() {
+        removeVehicle();
     }
     public void addObserver(IModelObserver observer) {
         observers.add(observer);

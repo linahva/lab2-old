@@ -156,6 +156,18 @@ public class CarView extends JFrame implements IModelObserver{
                 carC.lowerPlatform();
             }
         });
+        addCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.addCar();
+            }
+        });
+        removeCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.removeCar();
+            }
+        });
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
@@ -186,5 +198,8 @@ public class CarView extends JFrame implements IModelObserver{
         for (ImageWrapper item : items) {
             drawPanel.addItems(item);
         }
+    }
+    public void removeRenderItem(ImageWrapper item) {
+        drawPanel.removeItems(item);
     }
 }

@@ -48,5 +48,11 @@ public class CarController {
     void lowerPlatform() {
         model.lowerPlatform();
     }
+    void addCar() {
+        model.addCar();
+    }
+    void removeCar() {
+        model.removeCar();
+    }
 
 }

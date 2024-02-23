@@ -6,4 +6,5 @@ import java.util.ArrayList;
 public interface IModelObserver {
     public void onModelUpdate();
     public void addRenderItem(ImageWrapper item);
+    public void removeRenderItem(ImageWrapper item);
 }
