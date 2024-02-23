@@ -2,13 +2,13 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainTimer {
+public class MainApp {
 
     private final int delay = 50;
     private Timer timer;
     private Model model;
 
-    public MainTimer(Model model) {
+    public MainApp(Model model) {
         this.model = model;
         timer = new Timer(delay, new TimerListener());
     }
@@ -23,7 +23,7 @@ public class MainTimer {
         model.addVehicle(Factory.createScania(0, 400,false));
         model.addShop(Factory.createVolvoShop(10, 200, 0));
         //cw.addDrawableItems(model.getDrawableItems());
-        MainTimer main = new MainTimer(model);
+        MainApp main = new MainApp(model);
         main.startTimer();
     }
 
