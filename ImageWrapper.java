@@ -1,20 +1,8 @@
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-public abstract class ImageWrapper {
-    BufferedImage image;
-    Point position;
-    
-    public void setPosition(int x, int y) {
-        this.position.setLocation(x,y);
-    }
-    public int getX(){
-        return position.x;
-    }
-    public int getY() {
-        return position.y;
-    }
-    public BufferedImage getImage() {
-        return image;
-    }
+public interface ImageWrapper {
+    public void setPosition(int x, int y);
+    public int getX();
+    public int getY();
+    public BufferedImage getImage();
 }

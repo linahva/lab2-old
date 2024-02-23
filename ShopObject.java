@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -7,8 +8,10 @@ import src.CarRepairShop;
 import src.Vehicle;
 import src.Volvo240;
 
-public class ShopObject extends ImageWrapper{
+public class ShopObject implements ImageWrapper{
     private CarRepairShop<Volvo240> shop;
+    private Point position;
+    private BufferedImage image;
 
     ShopObject(CarRepairShop<Volvo240> shop){
         this.shop = shop;
@@ -29,5 +32,18 @@ public class ShopObject extends ImageWrapper{
     }
     public void loadCar(Volvo240 car) {
         shop.loadCar(car);
+    }
+    public void setPosition(int x, int y) {
+        position.x = x;
+        position.y = y;
+    }
+    public int getX() {
+        return position.x;
+    }
+    public int getY() {
+        return position.y;
+    }
+    public BufferedImage getImage() {
+        return image;
     }
 }

@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -7,10 +8,12 @@ import src.IScaniaRamp;
 import src.ITurbo;
 import src.Vehicle;
 
-public class VehicleObject extends ImageWrapper{
+public class VehicleObject implements ImageWrapper{
     private Vehicle vehicle;
     private ITurbo turbo;
     private IScaniaRamp ramp;
+    private Point position;
+    private BufferedImage image;
 
     public VehicleObject(Vehicle vehicle) {
         this.vehicle = vehicle;
@@ -22,6 +25,19 @@ public class VehicleObject extends ImageWrapper{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    }
+    public void setPosition(int x, int y) {
+        position.x = x;
+        position.y = y;
+    }
+    public int getX() {
+        return position.x;
+    }
+    public int getY() {
+        return position.y;
+    }
+    public BufferedImage getImage() {
+        return image;
     }
     public VehicleObject(Vehicle vehicle, ITurbo turbo) {
         this(vehicle);
