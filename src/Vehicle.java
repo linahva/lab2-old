@@ -3,7 +3,7 @@ package src;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Vehichle implements Movable{
+public abstract class Vehicle implements Movable{
     private int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
     private double currentSpeed = 0; // The current speed of the car
@@ -12,9 +12,8 @@ public abstract class Vehichle implements Movable{
     private double direction = 0;
     private Point2D point;
     private int carSizeCategory;
-    private boolean isLoaded = false;
 
-    public Vehichle(int nrDoors, Color color, double enginePower, String modelName, int category) {
+    public Vehicle(int nrDoors, Color color, double enginePower, String modelName, int category) {
         this.nrDoors = nrDoors;
         this.color = color;
         this.enginePower = enginePower;
@@ -26,15 +25,15 @@ public abstract class Vehichle implements Movable{
     public int getNrDoors() {
         return nrDoors;
     }
-    public void setLoaded(boolean loaded) {
-        isLoaded = loaded;
-    }
     public int getCarSizeCategory() {
         return carSizeCategory;
     }
 
         public double getEnginePower() {
             return enginePower;
+        }
+        public void setAngle(double angle){
+            direction = angle;
         }
 
         public double getCurrentSpeed() {
@@ -63,7 +62,6 @@ public abstract class Vehichle implements Movable{
 
         @Override
         public void move() {
-            if (!isLoaded)
                 point.setLocation(point.getX() + Math.cos(direction) * currentSpeed, point.getY() + Math.sin(direction) * currentSpeed);
         }
 

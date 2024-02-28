@@ -1,0 +1,15 @@
+
+
+
+- Vilka avvikelser från MVC-idealet kan ni identifiera i det ursprungliga användargränssnittet? Vad borde ha gjorts smartare, dummare eller tunnare?
+    CarController har för mycket funktionalitet, borde gjort den tunnare då den har applikations logik samt kollar till vilket objekt den ska skicka saker osv, den initierar även view.
+    Ingen tydlig avgränsad modell. CarController borde inte känna till view.
+
+- Vilka av dessa brister åtgärdade ni med er nya design från del 2A? Hur då? Vilka brister åtgärdade ni inte?
+    Gjorde carController tunnare, tog bort funktionalitet samt tog bort beroende till view. Skapade en modell som samlade logiken för car och carshop. Gjorde view dummare genom att ta bort metoder.
+    CarController borde gjorts ännu tunnare, funktionallitet som att kolla vad för bilobjekt som kallas på samt uträkningar för om bilen är i scenen finns fortfarande kvar.
+    Detta leder följdaktigen till att Model bord bli smartare och innaha den funktionaliteten. Modellen borde inte heller alls vara beroende av en view vilket den nu är för att kunna
+    uppdatera grafiken. mainTimer är dåligt namn och borde bytas till application och initiera alla komponenter och inte bara view.
+
+Rita ett nytt UML-diagram som beskriver en förbättrad design med avseende på MVC.
+done!

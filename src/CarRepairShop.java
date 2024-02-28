@@ -23,8 +23,8 @@ public class CarRepairShop<T extends Car> implements Loadable<T> {
     public void loadCar(T car) {
         loadedCars.loadCar(car, shopX(), shopY());
     }
-    public boolean loadable(T car){
-        return loadedCars.carProximity(car, shopX(), shopY());
+    public boolean loadable(Vehicle vehicle){
+        return loadedCars.carProximity(vehicle, shopX(), shopY());
     }
     public Stack<Car> getLoadedCars() {
         return loadedCars.getLoadedCars();

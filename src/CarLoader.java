@@ -25,7 +25,7 @@ public class CarLoader{
             loadedCars.add(car);
             car.setLocation(x, y);
             car.stopEngine();
-            car.setLoaded(true);
+            car.load();
         } else {
             throw new IllegalStateException("is full");
         }
@@ -35,9 +35,9 @@ public class CarLoader{
         return loadedCars;
     }
 
-    public boolean carProximity(Car car, double x, double y){
-        double xCar = car.getX();
-        double yCar = car.getY();
+    public boolean carProximity(Vehicle vehicle, double x, double y){
+        double xCar = vehicle.getX();
+        double yCar = vehicle.getY();
         double dist = Math.sqrt(Math.pow(xCar-x,2)+Math.pow(yCar-y,2));
         return dist < 3;
     }
@@ -45,7 +45,7 @@ public class CarLoader{
             if (!loadedCars.empty()){
                 Car car = loadedCars.pop();
                 car.setLocation(car.getX(), car.getY()-1);
-                car.setLoaded(false);
+                car.unload();
             } else {
                 throw new IllegalArgumentException("No car to unload");
             }
