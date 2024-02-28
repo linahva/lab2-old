@@ -1,6 +1,6 @@
 package src;
 
-public class CarPlatform implements Platform{
+public class CarPlatform implements IPlatform{
     private boolean isRampDown;
     CarPlatform(){
         isRampDown = true;

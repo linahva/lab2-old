@@ -6,21 +6,18 @@ import javax.swing.*;
 
 public class View extends JPanel implements IModelObserver{
 
-    ArrayList<ImageWrapper> items = new ArrayList<>();
+    private Model model;
+    private ArrayList<IDrawable> items = new ArrayList<IDrawable>();
 
 
     public void onModelUpdate() {
+        items = model.getDrawables();
         this.repaint();
-    }
-    public void addRenderItem(ImageWrapper item) {
-        items.add(item);
-    }
-    public void removeRenderItem(ImageWrapper item) {
-        items.remove(item);
     }
 
     // Initializes the panel and reads the images
-    public View(int x, int y) {
+    public View(int x, int y, Model model) {
+        this.model = model;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
@@ -30,7 +27,7 @@ public class View extends JPanel implements IModelObserver{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (ImageWrapper item : items) {
+        for (IDrawable item : items) {
             g.drawImage(item.getImage(), item.getX(), item.getY(), null);
         }
     }

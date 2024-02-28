@@ -4,14 +4,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import src.IScaniaRamp;
+import src.IPlatform;
 import src.ITurbo;
 import src.Vehicle;
 
-public class VehicleObject implements ImageWrapper{
+public class VehicleObject implements IDrawable{
     private Vehicle vehicle;
-    private ITurbo turbo;
-    private IScaniaRamp ramp;
     private Point position;
     private BufferedImage image;
 
@@ -39,30 +37,26 @@ public class VehicleObject implements ImageWrapper{
     public BufferedImage getImage() {
         return image;
     }
-    public VehicleObject(Vehicle vehicle, ITurbo turbo) {
-        this(vehicle);
-        this.turbo = turbo;
-    }
-    public VehicleObject(Vehicle vehicle, IScaniaRamp ramp) {
-        this(vehicle);
-        this.ramp = ramp;
-    }
 
     public void setTurboOn() {
-        if (turbo != null)
-        turbo.setTurboOn();
+        if (vehicle instanceof ITurbo){
+            ((ITurbo) vehicle).setTurboOn();
+        }
     }
     public void setTurboOff() {
-        if (turbo != null)
-        turbo.setTurboOff();
+        if (vehicle instanceof ITurbo){
+            ((ITurbo) vehicle).setTurboOn();
+        }
     }
     public void raisePlatform() {
-        if (ramp != null)
-        ramp.raisePlatform();
+        if (vehicle instanceof IPlatform){
+            ((IPlatform) vehicle).rampUp();
+        }
     }
     public void lowerPlatform() {
-        if (ramp != null)
-        ramp.lowerPlatform();
+        if (vehicle instanceof IPlatform){
+            ((IPlatform) vehicle).rampDown();
+        }
     }
     public void gas(double amount) {
         vehicle.gas(amount);

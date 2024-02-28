@@ -14,11 +14,11 @@ public abstract class Truck extends Vehicle {
     }
     @Override
     public void startEngine() {
-        if (getPlatformStatus()){
+        if (isRampDown()){
             super.startEngine();
         } else {
             throw new IllegalStateException("Cant start engine because platform is down");
         }
     }
-    abstract public boolean getPlatformStatus();
+    abstract public boolean isRampDown();
 }

@@ -1,6 +1,6 @@
 package src;
 
-public interface Platform {
+public interface IPlatform {
     public void rampUp();
     public void rampDown();
     public boolean isRampDown();

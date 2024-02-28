@@ -3,7 +3,7 @@ package src;
 import java.awt.*;
 import java.util.Stack;
 
-public class CarTransport extends Truck implements Loadable<Car>{
+public class CarTransport extends Truck implements Loadable<Car>, IPlatform{
     private CarLoader loadedCars;
     private CarPlatform carPlatform;
 
@@ -15,7 +15,7 @@ public class CarTransport extends Truck implements Loadable<Car>{
     
     @Override
     public void move() {
-        if (getPlatformStatus()){
+        if (isRampDown()){
             super.move();
             for (Car car : loadedCars.getLoadedCars()){
                 car.setLocation(getX(), getY());
@@ -24,14 +24,14 @@ public class CarTransport extends Truck implements Loadable<Car>{
             throw new IllegalStateException("Cant move while truck bed is raised");
         }
     }
-    public void raisePlatform(){
+    public void rampUp(){
         if (getCurrentSpeed()>0){
             throw new IllegalStateException("Cant raise platform while moving");
         } else {
             carPlatform.rampUp();
         }
     }
-    public void lowerPlatform(){
+    public void rampDown(){
         if (getCurrentSpeed()>0){
             throw new IllegalStateException("Cant lower platform while moving");
         } else {
@@ -39,14 +39,14 @@ public class CarTransport extends Truck implements Loadable<Car>{
         }
     }
     public void loadCar(Car car){
-        if (getPlatformStatus()){
+        if (isRampDown()){
             loadedCars.loadCar(car, getX(), getY());
         } else {
             throw new IllegalStateException("Cant load car while truck bed is raised");
         }
     }
     public void unloadCar(){
-        if (getPlatformStatus()){
+        if (isRampDown()){
             loadedCars.unloadCar();
         } else {
             throw new IllegalStateException("Cant unload car while truck bed is raised");
@@ -56,7 +56,7 @@ public class CarTransport extends Truck implements Loadable<Car>{
         return loadedCars.getLoadedCars();
     }
 
-    public boolean getPlatformStatus(){
+    public boolean isRampDown(){
         return carPlatform.isRampDown();
     }
 }

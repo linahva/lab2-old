@@ -8,7 +8,7 @@ import src.CarRepairShop;
 import src.Vehicle;
 import src.Volvo240;
 
-public class ShopObject implements ImageWrapper{
+public class ShopObject implements IDrawable{
     private CarRepairShop<Volvo240> shop;
     private Point position;
     private BufferedImage image;

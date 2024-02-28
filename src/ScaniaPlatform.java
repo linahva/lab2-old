@@ -1,6 +1,6 @@
 package src;
 
-public class ScaniaPlatform implements Platform {
+public class ScaniaPlatform implements IPlatform {
     private double angle;
     private final double maxAngle;
     

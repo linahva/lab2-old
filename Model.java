@@ -1,41 +1,66 @@
 import src.CarRepairShop;
+import src.IPlatform;
+import src.ITurbo;
 import src.Volvo240;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
-import java.util.Random;
+
+import javax.swing.Timer;
 
 public class Model {
     private ArrayList<VehicleObject> vehicles;
     private ShopObject shop;
     private ArrayList<IModelObserver> observers = new ArrayList<IModelObserver>();
+    private final int delay = 50;
+    private Timer timer;
 
     public Model() {
         vehicles = new ArrayList<>();
+        timer = new Timer(delay, new TimerListener());
+        initObjects();
+        startTimer();
+    }
+    public void initObjects(){
+        addVehicle(Factory.createSaab(0, 200,false));
+        addVehicle(Factory.createVolvo(0, 0,false));
+        addVehicle(Factory.createScania(0, 400,false));
+        addShop(Factory.createVolvoShop(10, 200, 0));
+    }
+    private class TimerListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            updateTickModel();
+        }
+    }
+    public void startTimer() {
+        timer.start();
+    }
+
+    public void stopTimer() {
+        timer.stop();
     }
 
     public void addVehicle(VehicleObject vehicle) {
         if (vehicles.size() < 10){
         vehicles.add(vehicle);
-        addRenderToObserver(vehicle);
         notifyObservers();
         }
     }
     public void removeVehicle() { 
         if (vehicles.size() > 0){
-            removeRenderFromObserver(vehicles.get(0));
             vehicles.remove(0);
             notifyObservers();
         }
     }
-    public void addRenderToObserver(ImageWrapper img) {
-        for (IModelObserver observer : observers) {
-            observer.addRenderItem(img);
+    public ArrayList<IDrawable> getDrawables(){
+        ArrayList<IDrawable> drawables = new ArrayList<>();
+        for (VehicleObject vehicle : vehicles) {
+            drawables.add(vehicle);
         }
-    }
-    public void removeRenderFromObserver(ImageWrapper img) {
-        for (IModelObserver observer : observers) {
-            observer.removeRenderItem(img);
-        }
+        drawables.add(shop);
+        return drawables;
     }
 
     public ShopObject getShop() {
@@ -44,7 +69,6 @@ public class Model {
 
     public void addShop (CarRepairShop<Volvo240> shop){
         this.shop = new ShopObject(shop);
-        addRenderToObserver(this.shop);
     }
 
     public void gas(int amount) {
@@ -71,24 +95,33 @@ public class Model {
     }
     public void turboOn() {
         for (VehicleObject vehicle : vehicles) {
+            if (vehicle.getVehicle() instanceof ITurbo){
             vehicle.setTurboOn();
+            }
         }
     }
     public void turboOff() {
         for (VehicleObject vehicle : vehicles) {
+            if (vehicle.getVehicle() instanceof ITurbo){
             vehicle.setTurboOff();
+            }
         }
     }
     public void liftPlatform() {
         for (VehicleObject vehicle : vehicles) {
+            if (vehicle.getVehicle() instanceof IPlatform){
             vehicle.raisePlatform();
+            }
         }
     }
     public void lowerPlatform() {
         for (VehicleObject vehicle : vehicles) {
+            if (vehicle.getVehicle() instanceof IPlatform){
             vehicle.lowerPlatform();
+            }
         }
     }
+    //Random implementation av addCar då inget mer specifikt definerades
     public void addCar() {
         addVehicle(Factory.createVolvo(400, 300, true));
     }

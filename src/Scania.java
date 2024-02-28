@@ -2,7 +2,7 @@ package src;
 
 import java.awt.*;
 
-public class Scania extends Truck implements IScaniaRamp{
+public class Scania extends Truck implements IPlatform{
     private static final int maxAngle = 70;
     private ScaniaPlatform carPlatform;
     public Scania(){
@@ -12,21 +12,21 @@ public class Scania extends Truck implements IScaniaRamp{
     public double getRampAngle(){
         return carPlatform.getPlatformAngle();
     }
-    public void raisePlatform(){
+    public void rampUp(){
         if (getCurrentSpeed()>0){
             throw new IllegalStateException("Can't raise platform while moving");
         } else {
             carPlatform.rampUp();
         }
     }
-    public void lowerPlatform(){
+    public void rampDown(){
         if (getCurrentSpeed()>0){
             throw new IllegalStateException("Can't lower platform while moving");
         } else {
             carPlatform.rampDown();
         }
     }
-    public boolean getPlatformStatus(){
+    public boolean isRampDown(){
         return carPlatform.isRampDown();
     }
 }

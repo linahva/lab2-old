@@ -23,13 +23,13 @@ public class Factory {
         Saab95 saab = new Saab95();
         saab.setLocation(x,y);
         saab.setAngle(randomAngle(randomAngle));
-        return new VehicleObject(saab, saab);
+        return new VehicleObject(saab);
     }
     public static VehicleObject createScania(double x, double y, boolean randomAngle){
         Scania scania = new Scania();
         scania.setLocation(x,y);
         scania.setAngle(randomAngle(randomAngle));
-        return new VehicleObject(scania, scania);
+        return new VehicleObject(scania);
     }
     public static CarRepairShop<Volvo240> createVolvoShop(int capacity, double x, double y){
         return new CarRepairShop<>(capacity, x, y);
